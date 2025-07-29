@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import "./TotalCost.css";
 
 const TotalCost = ({ totalCosts, ItemsDisplay }) => {
+
+ 
   
 
   return (
