@@ -26,34 +26,55 @@ let users = [
 // GET request: Retrieve all users
 router.get("/",(req,res)=>{
   // Copy the code here
-  res.send("Yet to be implemented")//This line is to be replaced with actual return value
+  res.json({ users }); // This line returns the list of users as JSON
 });
 
 // GET by specific ID request: Retrieve a single user with email ID
 router.get("/:email",(req,res)=>{
-  // Copy the code here
-  res.send("Yet to be implemented")//This line is to be replaced with actual return value
+  let user = users.find(user => user.email === req.params.email);
+  res.send(user); // This line returns the user object if found
 });
 
 
 // POST request: Create a new user
 router.post("/",(req,res)=>{
-  // Copy the code here
-  res.send("Yet to be implemented")//This line is to be replaced with actual return value
+  let newUser = {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    DOB: req.body.DOB
+  };
+  users.push(newUser);
+  res.send(newUser);
 });
 
 
 // PUT request: Update the details of a user by email ID
 router.put("/:email", (req, res) => {
-  // Copy the code here
-  res.send("Yet to be implemented")//This line is to be replaced with actual return value
+  let userIndex = users.findIndex(user => user.email === req.params.email);
+  if (userIndex !== -1) {
+    users[userIndex] = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      DOB: req.body.DOB
+    };
+    res.send(users[userIndex]);
+  } else {
+    res.status(404).send("User not found");
+  }
 });
 
 
 // DELETE request: Delete a user by email ID
 router.delete("/:email", (req, res) => {
-  // Copy the code here
-  res.send("Yet to be implemented")//This line is to be replaced with actual return value
+  let userIndex = users.findIndex(user => user.email === req.params.email);
+  if (userIndex !== -1) {
+    users.splice(userIndex, 1);
+    res.send("User deleted");
+  } else {
+    res.status(404).send("User not found");
+  } 
 });
 
 module.exports=router;
