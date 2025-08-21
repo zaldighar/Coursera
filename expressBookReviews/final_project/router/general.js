@@ -9,6 +9,10 @@ public_users.post("/register", (req,res) => {
   let username = req.body.username;
   let password = req.body.password;
 
+  if (username === undefined || password === undefined) {
+      return res.status(400).json({ message: "Username and password are required" });
+  }
+
   if (!isValid(username)) {
       return res.status(400).json({ message: "Invalid username" });
   }
